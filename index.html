@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enciclopédia de Indicadores Financeiros - PME</title>
+  <style>
+    body {
+      background: #1c2230;
+      color: #f5f6fa;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 40px auto;
+      background: #242b3d;
+      padding: 32px 24px 24px 24px;
+      border-radius: 18px;
+      box-shadow: 0 8px 36px #10121a70;
+    }
+    h1 {
+      text-align: center;
+      font-size: 2.7rem;
+      margin-bottom: 28px;
+      letter-spacing: 2px;
+      color: #ffd700;
+      text-shadow: 1px 1px 8px #fff00055;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 26px;
+    }
+    .card {
+      background: #303a57;
+      border-radius: 16px;
+      box-shadow: 0 2px 10px #0005;
+      padding: 18px 16px 18px 16px;
+      text-align: center;
+      position: relative;
+      transition: transform 0.15s;
+      min-height: 410px;
+      overflow: hidden;
+    }
+    .card:hover {
+      transform: translateY(-7px) scale(1.025);
+      box-shadow: 0 6px 26px #ffd70060;
+    }
+    .indicador-img {
+      width: 80px;
+      height: 80px;
+      margin-bottom: 8px;
+      object-fit: contain;
+      background: #22294a;
+      border-radius: 50%;
+      border: 3px solid #ffd70080;
+      margin-top: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      color: #ffd700;
+      box-shadow: 0 1px 5px #ffd70040;
+    }
+    .indicador-nome {
+      font-size: 1.16rem;
+      font-weight: 700;
+      color: #ffd700;
+      margin: 6px 0 2px 0;
+      letter-spacing: 1.2px;
+      text-shadow: 1px 1px 5px #fff00066;
+    }
+    .indicador-categoria {
+      font-size: 0.93rem;
+      font-weight: 500;
+      color: #60e1ff;
+      margin-bottom: 8px;
+    }
+    .indicador-descricao {
+      font-size: 0.96rem;
+      line-height: 1.5;
+      color: #f3f4fa;
+      margin-bottom: 0;
+      margin-top: 4px;
+    }
+    .tag {
+      display: inline-block;
+      padding: 2px 8px;
+      margin: 1px 2px;
+      border-radius: 12px;
+      font-size: 0.85rem;
+      background: #26367b;
+      color: #b7f9fd;
+      border: 1px solid #60e1ff55;
+    }
+    @media (max-width: 700px) {
+      .container {padding: 14px 3px;}
+      .grid {gap: 14px;}
+      .card {padding: 11px 6px;}
+      h1 {font-size: 1.45rem;}
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Enciclopédia de Indicadores Financeiros<br> Pequenas e Médias Empresas</h1>
+    <div class="grid" id="indicadores"></div>
+  </div>
+  <script>
+    // 18 principais indicadores para PME
+    // Ícones: Emoji unicode para facilitar leitura visual
+    const indicadores = [
+      {
+        nome: 'Margem de Contribuição',
+        icone: '💰',
+        categoria: ['Rentabilidade', 'Comercial'],
+        descricao: 'Revela quanto sobra da receita de vendas após deduzir custos e despesas variáveis, sendo fundamental para entender o potencial de lucro e formação do preço de venda.'
+      },
+      {
+        nome: 'Ponto de Equilíbrio',
+        icone: '⚖️',
+        categoria: ['Rentabilidade', 'Gestão'],
+        descricao: 'Volume mínimo de vendas para cobrir todos os custos e despesas fixas e variáveis. Atingir o ponto de equilíbrio é essencial para a sobrevivência do negócio.'
+      },
+      {
+        nome: 'EBITDA',
+        icone: '📊',
+        categoria: ['Resultado Operacional'],
+        descricao: 'Lucro antes de juros, impostos, depreciação e amortização. É o principal indicador para avaliar a performance operacional, comparando empresas de portes ou setores diferentes.'
+      },
+      {
+        nome: 'DRE (Demonstrativo de Resultado)',
+        icone: '🧾',
+        categoria: ['Financeiro'],
+        descricao: 'Resumo das receitas, custos e despesas em determinado período, evidenciando o lucro líquido e servindo de base para análises gerenciais.'
+      },
+      {
+        nome: 'Giro de Estoque',
+        icone: '📦',
+        categoria: ['Operacional'],
+        descricao: 'Mede quantas vezes o estoque é renovado dentro de um período. Estoque alto pode indicar capital parado; giro rápido sugere boa gestão.'
+      },
+      {
+        nome: 'Ciclo Financeiro',
+        icone: '🔄',
+        categoria: ['Fluxo de Caixa'],
+        descricao: 'Tempo entre o pagamento dos fornecedores e o recebimento das vendas. Ciclo longo pode exigir mais capital de giro.'
+      },
+      {
+        nome: 'Capital de Giro',
+        icone: '💼',
+        categoria: ['Liquidez'],
+        descricao: 'Recursos necessários para manter as operações do dia a dia da empresa funcionando, cobrindo contas a pagar, receber e estoques.'
+      },
+      {
+        nome: 'Ticket Médio',
+        icone: '🧮',
+        categoria: ['Comercial'],
+        descricao: 'Valor médio gasto por cada cliente em uma compra. Ajuda a entender o perfil do consumidor e potencial de aumento de receita.'
+      },
+      {
+        nome: 'Curva ABC',
+        icone: '📈',
+        categoria: ['Gestão de Estoque', 'Comercial'],
+        descricao: 'Classifica produtos ou clientes conforme sua relevância no faturamento ou resultado, facilitando priorização de esforços e foco estratégico.'
+      },
+      {
+        nome: 'PME (Prazo Médio de Estoque)',
+        icone: '⏱️',
+        categoria: ['Operacional'],
+        descricao: 'Número médio de dias em que o produto fica no estoque antes de ser vendido. Estoques longos consomem capital de giro e aumentam riscos de perdas.'
+      },
+      {
+        nome: 'PMP (Prazo Médio de Pagamento)',
+        icone: '💳',
+        categoria: ['Financeiro'],
+        descricao: 'Prazo médio concedido aos fornecedores. Prazos longos melhoram o caixa, mas exigem bom relacionamento e negociação.'
+      },
+      {
+        nome: 'PMR (Prazo Médio de Recebimento)',
+        icone: '🗓️',
+        categoria: ['Financeiro'],
+        descricao: 'Prazo médio para receber dos clientes. Quanto menor, melhor para o caixa. Prazos longos aumentam o risco de inadimplência.'
+      },
+      {
+        nome: 'ROIC (Retorno sobre Capital Investido)',
+        icone: '🏦',
+        categoria: ['Rentabilidade', 'Investimento'],
+        descricao: 'Avalia a eficiência da empresa em gerar lucro sobre o capital investido. Essencial para comparar alternativas de investimento.'
+      },
+      {
+        nome: 'ROI (Retorno sobre Investimento)',
+        icone: '🔝',
+        categoria: ['Rentabilidade', 'Investimento'],
+        descricao: 'Mede o retorno de uma ação ou projeto específico em relação ao valor investido. Fundamental para tomadas de decisão estratégicas.'
+      },
+      {
+        nome: 'Fluxo de Caixa Livre',
+        icone: '💸',
+        categoria: ['Fluxo de Caixa'],
+        descricao: 'Mostra quanto dinheiro sobra depois de todos os custos, despesas e investimentos necessários ao funcionamento da empresa.'
+      },
+      {
+        nome: 'Índice de Liquidez Corrente',
+        icone: '🌊',
+        categoria: ['Liquidez'],
+        descricao: 'Mostra a capacidade da empresa de pagar compromissos de curto prazo. Índices baixos indicam risco financeiro.'
+      },
+      {
+        nome: 'Índice de Endividamento',
+        icone: '📉',
+        categoria: ['Financeiro'],
+        descricao: 'Proporção das dívidas em relação ao patrimônio ou ativos. Endividamento alto pode comprometer a saúde financeira da empresa.'
+      },
+      {
+        nome: 'Markup',
+        icone: '🤑',
+        categoria: ['Comercial'],
+        descricao: 'Percentual acrescido ao custo do produto para formar o preço de venda, garantindo cobertura dos custos fixos e lucro.'
+      }
+    ];
+    function categoriaTag(cat) {
+      return `<span class="tag">${cat}</span>`;
+    }
+    function indicadorCard(ind) {
+      return `
+        <div class="card">
+          <div class="indicador-img">${ind.icone}</div>
+          <div class="indicador-nome">${ind.nome}</div>
+          <div class="indicador-categoria">${ind.categoria.map(categoriaTag).join(' ')}</div>
+          <div class="indicador-descricao">${ind.descricao}</div>
+        </div>
+      `;
+    }
+    document.getElementById('indicadores').innerHTML = indicadores.map(indicadorCard).join('');
+  </script>
+</body>
+</html>
